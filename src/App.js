@@ -1,26 +1,44 @@
 import React from 'react';
-import logo from './logo.svg';
+import "materialize-css/dist/css/materialize.min.css";
+import "materialize-css/dist/js/materialize.min.js";
+import NavbarFull from './Components/Navbar/Navbar.component.js';
+import Laptop from './Components/Laptop/Laptop';
+import BackgroundImage from './Components/BackgroundImage/BackgroundImage';
+import { Controller, Scene } from 'react-scrollmagic';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+class App extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+    }
+
+  }
+  // handleScroll = () => {;
+  //   return console.log(this) ;
+  // }
+  // componentDidMount() {
+  //   window.addEventListener("scroll", this.handleScroll);
+  // }
+  render() {
+    return (
+      <div className="App" style={{height:300 + 'vh'}}>
+        <NavbarFull />
+        <BackgroundImage />
+        
+        
+        <Controller>
+
+          <Scene>
+            {(progress, event) => {
+              return <Laptop progress={progress}/>
+            }}
+          </Scene>
+        </Controller>
+
+      </div>
   );
+    }
 }
 
 export default App;

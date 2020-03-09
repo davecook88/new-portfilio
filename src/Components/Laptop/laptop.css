@@ -1,0 +1,163 @@
+.laptop-drawing{
+    height:200px;
+    width:400px;
+    position: fixed;
+    display:block;
+    margin:5% 30%;
+  }
+  
+  .laptop-screen-outer {
+    height:100%;
+    width:100%;
+    border: 1px solid #999;
+    background-color:#444;
+    border-radius: 10px;
+    margin:auto;
+    position:relative;
+    border:1px outset grey;
+    
+  }
+  .laptop-screen-inner {
+    width:90%;
+    height:85%;
+    background-color:#000;
+    margin:auto;
+    margin-top:4%;
+    border-radius:5px;
+    padding:3%;
+    border:2px inset grey;
+    font-size:0.2em;
+    position: relative;
+  }
+  .laptop-camera{
+    position: absolute;
+    border-radius:100%;
+    border:2px solid black;
+    left:50%;
+    top: 3%;
+  }
+  .laptop-camera > div {
+    border:1px solid grey;
+  }
+  
+  .laptop-keyboard-base {
+    width: 146%;
+    height: 7%;
+    margin-left: -23%;
+    border: 1px solid grey;
+    background-color: #bbb;
+    background: linear-gradient(180deg, rgba(186,186,189,1) 0%, rgba(116,116,116,1) 30%, rgba(66,66,66,1) 100%);
+    border-radius: 10% 10% 50% 50%;
+  }
+  
+  #cursor {
+    height:1em;
+    border: 1px solid lawngreen;  
+  }
+  
+  .blink_me {
+    animation: blinker 0.5s linear infinite;
+  }
+  
+  @keyframes blinker {
+    50% {
+      opacity: 0;
+    }
+  }
+
+  .laptop-keyboard {
+    padding: 0.5%;
+    position: relative;
+    z-index: -1;
+    height: 22%;
+    width: 118%;
+    margin-left: -9%;
+    margin-top: -1.8%;
+    margin-bottom: 0%;
+    background-color: #717171;
+    transform: perspective(118px) rotateX(31deg);
+  
+  }
+
+  .laptop-keys-box{
+    width:95%;
+    height:75%;
+    z-index: -1;
+    background-color: #333;
+    margin:auto;
+    border:1px inset darkgray;
+    position: relative;
+  }
+  .laptop-key {
+    position: relative;
+    z-index: -1;
+    background-color: #333;
+    width: 10%;
+    height: 100%;
+    color: #eee;
+    font-family: Arial;
+    border-bottom: 1px outset #000;
+    border-right: 1px outset #000;
+    /* border-left: 1px outset #000; */
+    border-radius: 10%;
+    display: inline-block;
+    cursor: pointer;
+  }
+  .laptop-keys-space.letters{
+    width: 76%;
+    height: 100%;
+    display: inline-block;
+  }
+  .laptop-keys-row{
+    height:32%;
+    width:100%;
+  }
+  .laptop-keys-space.numbers{
+    width:23%;
+    height:100%;
+    display: inline-block;
+  }
+  .laptop-keys-space.numbers > .laptop-keys-row > .laptop-key{
+    width:30%;
+    height: 100%;
+  }
+  .laptop-letter{
+    margin-left: 40%;
+    font-size: 75%;
+  }
+  .laptop-trackpad{
+    width:20%;
+    height:30%;
+    background-color: #333;
+    margin:auto;
+    margin-top:0.2%;
+    border:1px inset darkgray;
+  }
+
+  /* LAPTOP SCREEN */
+  .code-text {
+    font-family:monospace;
+    color:lawngreen;
+    
+  }
+
+  .code-title {
+    font-size:16px;
+
+  }
+
+  .main-screen {
+    text-align: center;
+     font-size: 12px;
+  }
+  .social-media-button {
+    padding:1em;
+  }
+  .fab {
+    font-size: 16px;
+    color:lawngreen;
+  }
+  .fab:hover {
+    
+    color:#fff;
+  }
