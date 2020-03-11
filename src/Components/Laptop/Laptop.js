@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import LaptopScreen from './LaptopScreen'
-import './laptop.css'
+import './laptop.scss'
 
 
 const Button = (props) => {
@@ -11,16 +11,15 @@ const Button = (props) => {
 
 export default class Laptop extends Component {
     
-    // onKeyClick = (keyPressed) => {        
-    //     let screenText = this.state.text + keyPressed;
-    //     this.setState({text:screenText});
-    // }
+    onKeyClick = (keyPressed) => {        
+        let screenText = this.state.text + keyPressed;
+        this.setState({text:screenText});
+    }
+
 
     createKeys(characters){
         return characters.split('').map((char, key) => {
-            return (<Button character={char} key={key} 
-                // onClick={this.onKeyClick}
-                />);
+            return (<Button character={char} key={key} onClick={this.onKeyClick}/>);
         })
     }
     
@@ -28,23 +27,15 @@ export default class Laptop extends Component {
 
     render() {
         return (
-            <div className="laptop-drawing"  
-                style={{
-                    height:400 + 'px', 
-                    width:800 + 'px',
-                    }}>  
+            <div className="laptop-drawing fixed screen-center"  
+                style={this.props.style}>  
                 <div className="laptop-screen-outer">
                     <div className="laptop-camera">
                     <div></div>
                     </div>
                     <div className="laptop-screen-inner" onClick={this.typeText}>
                         <div id="screen">
-                            <LaptopScreen screen={'start'} />
-                            {/* <span>{this.props.progress}</span>
-                            <span id="typing">
-                            {this.state.screenText}
-                            </span>
-                            <span className="blink_me" id="cursor"></span> */}
+                            <LaptopScreen screen={this.props.screen} />
                         </div>
                     </div>
                 </div>

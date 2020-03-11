@@ -2,38 +2,77 @@ import React from 'react';
 import "materialize-css/dist/css/materialize.min.css";
 import "materialize-css/dist/js/materialize.min.js";
 import NavbarFull from './Components/Navbar/Navbar.component.js';
+import calculateInlineStyle from './Components/Laptop/calculateLaptopStyle';
 import Laptop from './Components/Laptop/Laptop';
-import BackgroundImage from './Components/BackgroundImage/BackgroundImage';
 import { Controller, Scene } from 'react-scrollmagic';
-import './App.css';
+import './App.scss';
 
 class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
+      updated:false,
+      laptopStyle:calculateInlineStyle()
     }
-
   }
-  // handleScroll = () => {;
-  //   return console.log(this) ;
-  // }
-  // componentDidMount() {
-  //   window.addEventListener("scroll", this.handleScroll);
-  // }
+
+  updateLaptopStyle(modifiers) {
+    console.log(modifiers);
+    this.setState({laptopStyle:calculateInlineStyle(modifiers), updated:true});
+  }
   render() {
     return (
       <div className="App" style={{height:300 + 'vh'}}>
         <NavbarFull />
-        <BackgroundImage />
-        
         
         <Controller>
-
-          <Scene>
-            {(progress, event) => {
-              return <Laptop progress={progress}/>
+        <section id="first" className="full-screen world-map">
+        </section>
+          <Scene offset={200} duration={1200}>
+            {(progress,event) => {  
+              const bigStyle = calculateInlineStyle();
+              const smallModifiers = {
+                heightModifier:0.45,
+                widthModifier:0.5,
+                leftModifier:0.1,
+                topModifier:0.1
+                };
+              const smallStyle = calculateInlineStyle(smallModifiers);
+              let style = bigStyle;
+              let screen = 'start'
+              if (event.state === "DURING") {
+                style = smallStyle;
+                screen = 'dice';
+              }
+              return (
+                <div>
+                  <Laptop style={style} screen={screen}/>
+                </div>
+                
+              )
             }}
+            
+          </Scene >
+          
+          <Scene duration={600} offset={200} pin classToggle="slide-in-right">
+            {()=>{
+              return (
+                <section id="second" className="full-screen padded">
+                  <div className="outer-textbox teal right">
+
+                  </div>
+                </section>)
+            }}
+
+            
           </Scene>
+          
+          
+          
+        
+        
+
+          
         </Controller>
 
       </div>

@@ -1,18 +1,13 @@
 import React, { Component } from 'react';
 import { Navbar, NavItem, Icon } from 'react-materialize';
-import './navbar.css';
+import './navbar.scss';
 
-const Button = (props) => {
-    return (<div className="laptop-key">{props.character}</div>)
-}
+// const Button = (props) => {
+//     return (<div className="laptop-key">{props.character}</div>)
+// }
 
 export default class NavbarFull extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         characters:'qwertyuiopasdfghjklzxcvbnm'
-    //     }
-    // }
+
     
     render() {
         return (

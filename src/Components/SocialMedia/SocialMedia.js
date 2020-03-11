@@ -41,7 +41,8 @@ export default class SocialMediaBar extends Component{
         ['github','https://github.com/davecook88'],
         ['codepen','https://codepen.com/DVC888'],
         ['youtube', 'https://youtube.com/lakarencitaMX'],
-        ['twitter', 'https://twitter.com/DaveCookUK']
+        ['twitter', 'https://twitter.com/DaveCookUK'],
+        ['linkedin', 'https://www.linkedin.com/in/david-cook-a1549ba2/']
       ]
       
     }

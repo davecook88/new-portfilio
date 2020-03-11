@@ -1,0 +1,14 @@
+nav ul a {
+    color:#333;
+}
+nav .brand-logo {
+    color:#333;
+}
+
+@mixin transition($str) {
+    -webkit-transition: #{$str};
+    -moz-transition: #{$str};
+    -ms-transition: #{$str};
+    -o-transition: #{$str};
+    transition: #{$str};      
+  }

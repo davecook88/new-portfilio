@@ -1,22 +1,35 @@
+@mixin transition($str) {
+  -webkit-transition: #{$str};
+  -moz-transition: #{$str};
+  -ms-transition: #{$str};
+  -o-transition: #{$str};
+  transition: #{$str};      
+}
+.screen-center {
+  top:15%;  
+  left:25%;
+}
+
 .laptop-drawing{
-    height:200px;
-    width:400px;
-    position: fixed;
+    @include transition('height 1s ease-in');
+    @include transition('width 1s ease-in');
+    // @include transition('left 0.5s ease-in');
+
     display:block;
-    margin:5% 30%;
+    // margin:5% 30%;
   }
   
-  .laptop-screen-outer {
-    height:100%;
-    width:100%;
-    border: 1px solid #999;
-    background-color:#444;
-    border-radius: 10px;
-    margin:auto;
-    position:relative;
-    border:1px outset grey;
-    
-  }
+.laptop-screen-outer {
+  height:100%;
+  width:100%;
+  border: 1px solid #999;
+  background-color:#444;
+  border-radius: 10px;
+  margin:auto;
+  position:relative;
+  border:1px outset grey;
+  
+}
   .laptop-screen-inner {
     width:90%;
     height:85%;
@@ -28,6 +41,7 @@
     border:2px inset grey;
     font-size:0.2em;
     position: relative;
+    overflow: hidden;
   }
   .laptop-camera{
     position: absolute;
@@ -135,23 +149,32 @@
   }
 
   /* LAPTOP SCREEN */
+  
+  @import url('https://fonts.googleapis.com/css?family=Fira+Code&display=swap');
+  $titleFont:'Fira Code';
+  $txtColor: lawngreen;
+  
   .code-text {
-    font-family:monospace;
-    color:lawngreen;
-    
+    font-family: $titleFont, monospace;
+    color:$txtColor;    
+  }
+  #typing{
+    font-family: monospace;
   }
 
   .code-title {
-    font-size:16px;
-
+    font-size:18px;
   }
 
   .main-screen {
     text-align: center;
-     font-size: 12px;
+    font-size: 12px;
+  }
+  .tall-80{
+    height:70em;
   }
   .social-media-button {
-    padding:1em;
+    padding:2em;
   }
   .fab {
     font-size: 16px;
@@ -160,4 +183,68 @@
   .fab:hover {
     
     color:#fff;
+  }
+  .fa-facebook:hover {
+    color:#3b5998;
+  }
+  .fa-twitter:hover {
+    color:#55acee;
+  }
+  .fa-linkedin:hover {
+    color:#007bb5;
+  }
+  .fa-youtube:hover {
+    color:#c4302b;
+  }
+  .fa-github:hover {
+    color:#fff;
+  }
+  .green-link {
+    text-decoration:none;
+    color:$txtColor;
+    font-size: 12px;
+  }
+  .green-link:hover {
+    color:#fff;
+  }
+  .social-media-bar {
+    display: inline-flex;
+    z-index: 3;
+  }
+  
+  .social-media-button{
+    font-size: 0.6em;
+    margin: 0.5em;
+    flex:auto;
+  }
+
+  .skill{
+    display: inline-flex;
+    font-size: 3em;
+    width: 35%;
+    font-family: $titleFont, monospace;
+    justify-content: space-between;
+    padding: 0.1em;
+    margin: 0.2em;
+    border-right:none;
+    @include transition('font-size 0.8s ease-in');
+  }
+  .skill-bar{
+    position:relative;
+    width:35%;
+    height:inherit;
+    border:2px outset $txtColor;
+  }
+  .skill-bar-fill{
+    position:absolute;
+    background-color: #fff;
+    background: rgb(205,238,229);
+    background: linear-gradient(90deg, rgba(205,238,229,1) 0%, rgba(53,204,157,1) 100%);
+    width:0%;
+    height:100%;
+    z-index:2;
+    animation: progress-bar 2s linear;
+  }
+  @keyframes progress-bar {
+    from { width: 0; }
   }
