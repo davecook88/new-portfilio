@@ -19,6 +19,13 @@ export default class DiceScene extends Component {
             result: props.result || 1,
             id: props.id || 0,
             diceType: props.diceType || 6,
+            d10:props.diceType === 100 ? <DiceScene 
+                                            key={`display-d100-d10`} 
+                                            context={this} 
+                                            diceType={10} 
+                                            size={props.size} 
+                                            rendererSize={props.rendererSize} 
+                                            /> : '',
         }
         // this.id = props.id || 0;
         this.size = this.calculateDiceSize(props.size);
@@ -26,7 +33,6 @@ export default class DiceScene extends Component {
         this.camera = this.createCamera();
         this.renderer = this.createRenderer(props.rendererSize);
         this.dice = new Dice(this.state.diceType, this, {size:this.diceSize});
-        
     }
 
     componentDidMount(){
@@ -34,7 +40,11 @@ export default class DiceScene extends Component {
         this.mount.appendChild(this.renderer.domElement);
         this.threeRender();
     }
-
+    addNewDice(){
+        if (this.props.clickHandler){
+            this.props.clickHandler(this.state.diceType);
+        }
+    }
     calculateDiceSize(size = 200){
         if (!size) size =  200;
         return this.state.diceType < 7 ? size * 1.2 : size;   
@@ -94,8 +104,9 @@ export default class DiceScene extends Component {
             
             <div 
                 ref={ref => this.mount = ref}
-                className={`canvas-box `}//${this.extraClassNames}
+                className={`canvas-box d${this.state.diceType}`}//${this.extraClassNames}
                 id={`canvas-box-`}//${toString(this.state.id)}
+                onClick={() => this.addNewDice()}
                 >
                 <ResultText 
                     class={() => this.createResultTextClasses()}
@@ -103,8 +114,7 @@ export default class DiceScene extends Component {
                     >
                         {() => this.state.result}
                 </ResultText>
-                {/* {this.dice.element} */}
-                {/* {this.renderer.domElement} */}
+                {this.state.d10}
             </div>
         )
     }

@@ -1,7 +1,13 @@
+.dice-app{
+  text-align:center;
+}
 .dice-body {
     max-width: 600px;
     margin: auto;
     min-height: 600px;
+  }
+  .main-title-dice {
+    font-size:14px;
   }
 
   hr {
@@ -122,7 +128,7 @@
     z-index: 5;
   }
 
-  .row {
+  .result-row {
     border-bottom: 1px solid #b50004;
     text-align: center;
     display: flex;
@@ -133,7 +139,7 @@
 
   }
 
-  .row.slide {
+  .result-row.slide {
     animation: slideDown 0.7s;
   }
 
@@ -231,9 +237,11 @@
       width:fit-content;
       height:fit-content; 
       position:relative;
-      display:inline-block;
+      /* display:inline-block; */
   }
-
+  .canvas-box.d100{
+    display:block;
+  }
   .text-result {
       width:fit-content; 
       position: absolute; 

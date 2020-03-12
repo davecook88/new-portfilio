@@ -122,7 +122,7 @@ export default class Dice {
             } else {
                 this.axes[a] = finalState;
             }
-            if (this.axes[a] != finalState) stopSpinning = false;
+            if (this.axes[a] !== finalState) stopSpinning = false;
         }
         this.updateElementRotation();
         this.spin = !stopSpinning;

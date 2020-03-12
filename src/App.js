@@ -28,7 +28,7 @@ class App extends React.Component {
         <Controller>
         <section id="first" className="full-screen world-map">
         </section>
-          <Scene offset={200} duration={1200}>
+          <Scene offset={200} duration={1000}>
             {(progress,event) => {  
               const bigStyle = calculateInlineStyle();
               const smallModifiers = {
@@ -41,8 +41,14 @@ class App extends React.Component {
               let style = bigStyle;
               let screen = 'start'
               if (event.state === "DURING") {
-                style = smallStyle;
-                screen = 'dice';
+                if (progress < 0.5) {
+                  style = smallStyle;
+                  screen = 'test';
+                } else if (progress < 1) {
+                  style = smallStyle;
+                  screen = 'dice';
+                }
+                
               }
               return (
                 <div>
@@ -65,14 +71,7 @@ class App extends React.Component {
             }}
 
             
-          </Scene>
-          
-          
-          
-        
-        
-
-          
+          </Scene>          
         </Controller>
 
       </div>

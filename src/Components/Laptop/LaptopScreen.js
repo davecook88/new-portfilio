@@ -96,8 +96,7 @@ class OpeningScreen extends Component{
             cursor += 1;
             if (cursor > this.state.text.length) clearInterval(intervalId);  
         },5);
-        this.setState({intervalId: intervalId})
-        
+        this.setState({intervalId: intervalId});       
              
     }
     
@@ -153,7 +152,9 @@ export default class LaptopScreen extends Component {
     showScreen() {
         switch(this.props.screen) {
             case 'start':
-                return <OpeningScreen />;
+                return <OpeningScreen />
+            case 'test':
+                return <TestThree />;
             case 'dice':
                 return <DiceRollerApp />;
             default:
@@ -162,7 +163,7 @@ export default class LaptopScreen extends Component {
     }
     render() {
         return (
-            <div>
+            <div className="relative">
                 {this.showScreen()}
             </div>
         )

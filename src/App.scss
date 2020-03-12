@@ -5,12 +5,12 @@
   -o-transition: #{$str};
   transition: #{$str};      
 }
-.App {
-  /* text-align: center; */
-  /* height:1000px; */
-}
+
 .absolute {
   position: absolute;
+}
+.relative {
+  position:relative;
 }
 .fixed {
   position: fixed;

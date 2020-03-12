@@ -22,6 +22,15 @@ export default class Laptop extends Component {
             return (<Button character={char} key={key} onClick={this.onKeyClick}/>);
         })
     }
+    getBackgroundColorClass = () => {
+        switch (this.props.screen){
+            case 'dice':
+                return 'white';
+            default:
+                return 'black'
+
+        }
+    }
     
     
 
@@ -33,7 +42,7 @@ export default class Laptop extends Component {
                     <div className="laptop-camera">
                     <div></div>
                     </div>
-                    <div className="laptop-screen-inner" onClick={this.typeText}>
+                    <div className={`laptop-screen-inner ${this.getBackgroundColorClass()}`}onClick={this.typeText}>
                         <div id="screen">
                             <LaptopScreen screen={this.props.screen} />
                         </div>
