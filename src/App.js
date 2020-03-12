@@ -6,7 +6,13 @@ import calculateInlineStyle from './Components/Laptop/calculateLaptopStyle';
 import Laptop from './Components/Laptop/Laptop';
 import { Controller, Scene } from 'react-scrollmagic';
 import './App.scss';
-
+const smallModifiers = {
+  heightModifier:0.55,
+  widthModifier:0.52,
+  leftModifier:0.1,
+  topModifier:0.1
+  };
+const style = calculateInlineStyle(smallModifiers);
 class App extends React.Component {
   constructor(props){
     super(props);
@@ -28,38 +34,16 @@ class App extends React.Component {
         <Controller>
         <section id="first" className="full-screen world-map">
         </section>
-          <Scene offset={200} duration={1000}>
-            {(progress,event) => {  
-              const bigStyle = calculateInlineStyle();
-              const smallModifiers = {
-                heightModifier:0.45,
-                widthModifier:0.5,
-                leftModifier:0.1,
-                topModifier:0.1
-                };
-              const smallStyle = calculateInlineStyle(smallModifiers);
-              let style = bigStyle;
-              let screen = 'start'
-              if (event.state === "DURING") {
-                if (progress < 0.5) {
-                  style = smallStyle;
-                  screen = 'test';
-                } else if (progress < 1) {
-                  style = smallStyle;
-                  screen = 'dice';
-                }
-                
-              }
-              return (
-                <div>
-                  <Laptop style={style} screen={screen}/>
-                </div>
-                
-              )
-            }}
-            
+          <Scene offset={0} duration={200} classToggle="no-static">
+            <div className="laptop-wrapper">
+              <Laptop style={style} screen={'start'}/>
+            </div>
           </Scene >
-          
+          <Scene offset={200} duration={600} classToggle="fade-in">
+            <div className="laptop-wrapper faded">
+              <Laptop style={style} screen={'dice'}/>
+            </div>
+          </Scene>
           <Scene duration={600} offset={200} pin classToggle="slide-in-right">
             {()=>{
               return (
