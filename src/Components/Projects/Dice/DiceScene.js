@@ -15,10 +15,12 @@ export default class DiceScene extends Component {
     constructor(props) {
         super(props);
         this.state = {
+
             context:props.context,
             result: props.result || 1,
             id: props.id || 0,
-            diceType: props.diceType || 6,
+            diceType: props.diceType || [],
+            dice: this.createDiceArray(props.diceType),
             d10:props.diceType === 100 ? <DiceScene 
                                             key={`display-d100-d10`} 
                                             context={this} 
@@ -30,13 +32,28 @@ export default class DiceScene extends Component {
         // this.id = props.id || 0;
         this.size = this.calculateDiceSize(props.size);
         this.scene = this.createScene();
-        this.camera = this.createCamera();
+        this.camera = this.createCamera(props.size);
         this.renderer = this.createRenderer(props.rendererSize);
-        this.dice = new Dice(this.state.diceType, this, {size:this.diceSize});
+        // this.dice = new Dice(this.state.diceType, this, {size:this.diceSize});
+        
+    }
+
+    createDiceArray(diceType) {
+        console.log(diceType);
+        const diceAnimations = diceType.map((d, i) => {
+            let dice = new Dice(d, this, {size:this.diceSize});
+            const multiplier = i - 2.5;
+            dice.element.position.x = multiplier * 500;
+            return dice;
+        })
+        return diceAnimations;
     }
 
     componentDidMount(){
-        this.scene.add(this.dice.element);
+        this.state.dice.forEach((d) => {
+            this.scene.add(d.element);
+        })
+        // this.scene.add(this.dice.element);
         this.mount.appendChild(this.renderer.domElement);
         this.threeRender();
     }
@@ -49,16 +66,16 @@ export default class DiceScene extends Component {
         if (!size) size =  200;
         return this.state.diceType < 7 ? size * 1.2 : size;   
     }
-    createCamera() {
-        let width = 500;
-        let height = 500;	
+    createCamera(size) {
+        let width = size * 500;
+        let height = size * 100 ;	
         let camera = new THREE.OrthographicCamera( width / - 2, width / 2, height / 2, height / - 2, 1, 1000 )
-        camera.position.z = 400;
+        camera.position.z = 800;
         return camera;
     }
     createRenderer(size){
         const renderer = new THREE.WebGLRenderer();
-        renderer.setSize(size,size);
+        renderer.setSize(size * 10,size);
         renderer.domElement.id = 'dice-canvas';
         return renderer;
     }
@@ -88,16 +105,19 @@ export default class DiceScene extends Component {
     threeRender = () => {
         requestAnimationFrame(this.threeRender);
         this.renderer.render(this.scene, this.camera);
-        if (this.dice.slowDown) {
-            this.dice.reduceRotationAllAxes();
-        } else {
-            this.dice.spinAllAxes();
-        }
-        if (this.dice.showAnswer) {
-          this.showResult();
-        } else {
-          this.hideResult();
-        }
+        this.state.dice.forEach(d => {
+            if (d.slowDown) {
+                d.reduceRotationAllAxes();
+            } else {
+                d.spinAllAxes();
+            }
+            if (d.showAnswer) {
+              this.showResult();
+            } else {
+              this.hideResult();
+            }
+        })
+        
     }
     render() {
         return (
