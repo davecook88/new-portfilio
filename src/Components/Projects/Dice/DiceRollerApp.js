@@ -1,6 +1,7 @@
 import React, * as react from "react";
-import './dice.css';
+import "./dice.css";
 import DiceScene from "./DiceScene";
+import Dice from "./Dice";
 
 export default class DiceRollerApp extends react.Component {
   constructor(props) {
@@ -9,11 +10,17 @@ export default class DiceRollerApp extends react.Component {
       _diceRows: {},
       _resultsText: [],
       _scenes: [],
+      topRow:[],
       stillSpinning: true,
       modifier: 0,
       upToDate: false
     };
   }
+  componentDidMount() {
+    const elementArray = this.populateTopRowOfDisplayDice();
+    this.setState({topRow:elementArray});
+  }
+  
   applyResultsToPage() {
     const scenes = this.state._diceRows;
     let results = [];
@@ -46,12 +53,13 @@ export default class DiceRollerApp extends react.Component {
       results.push(resultHolder);
       grandTotal += total;
     }
-    const ModifierDiv = () => this.state.modifier ? (
-      <div className="modifier-result">Modifier: {this.state.modifier}</div>
-    ) : (
-      <div></div>
-    );
-    const GrandTotalElement  = () => (
+    const ModifierDiv = () =>
+      this.state.modifier ? (
+        <div className="modifier-result">Modifier: {this.state.modifier}</div>
+      ) : (
+        <div></div>
+      );
+    const GrandTotalElement = () => (
       <p>
         <strong>
           Grand Total: ${parseInt(grandTotal) + parseInt(this.state.modifier)}
@@ -161,93 +169,139 @@ export default class DiceRollerApp extends react.Component {
     }
   }
   updateAnimatedDice = () => {
-    const realDice = ['d4','d6','d8','d10','d12','d20','d100'];
+    const realDice = ["d4", "d6", "d8", "d10", "d12", "d20", "d100"];
     let state = this.state;
+    debugger;
     // const animationBox = document.getElementById('animations');
-    for (let d in state._diceRows){
-      if (realDice.includes(d)){
-        const diceNumber = parseInt(d.slice(1,));
+    for (let d in state._diceRows) {
+      if (realDice.includes(d)) {
+        const diceNumber = parseInt(d.slice(1));
         const scenesSoFar = state._scenes[d] || [];
         const numberOfDice = this.getNumberOfDice(d);
-        if (scenesSoFar.length < numberOfDice){
-          let scene = new DiceScene(this,diceNumber, this);
+        if (scenesSoFar.length < numberOfDice) {
+          const dice = new Dice(diceNumber)
+          const scene = new DiceScene(this, diceNumber, this);
           let scenesArray = this.getScenesByDice(d);
           scenesArray.push(scene);
-          this.setScenesByDice(d,scenesArray);
-        } else if (scenesSoFar.length > numberOfDice){
+          this.setScenesByDice(d, scenesArray);
+        } else if (scenesSoFar.length > numberOfDice) {
           while (scenesSoFar.length > numberOfDice) {
             scenesSoFar.pop();
           }
         }
-      }              
+      }
     }
-  }
-  modifierChange(n){
+  };
+  modifierChange(n) {
     let state = this.state;
     state.modifier += n;
     this.setState(state);
   }
-  populateTopRowOfDisplayDice(){
-    const diceNumbers = [4,6,8,10,12,20,100];
+  populateTopRowOfDisplayDice() {
+    const diceNumbers = [4, 6, 8, 10, 12, 20, 100];
     let scenesArray = diceNumbers.map(d => {
-      return  <DiceScene 
-                key={`display-d${d}`} 
-                context={this} 
-                diceType={d} 
-                size={150} 
-                rendererSize={d === 100 ? 30 : 60} 
-                clickHandler={this.handleClickDisplayDice}
-                />;
+      return (
+        <DiceScene
+          key={`display-d${d}`}
+          context={this}
+          diceType={d}
+          size={150}
+          rendererSize={d === 100 ? 30 : 60}
+          clickHandler={this.handleClickDisplayDice}
+        />
+      );
     });
     return scenesArray;
   }
-  handleClickDisplayDice = (d) => {
+  handleClickDisplayDice = d => {
     let state = this.state;
-    const newDiceScene = <DiceScene 
-                            key={`d${d}${state._scenes.length}`} 
-                            context={this} 
-                            diceType={d} 
-                            size={150} 
-                            rendererSize={d === 100 ? 30 : 60} 
-                            
-                            />;
-    
+    const newDiceScene = (
+      <DiceScene
+        key={`d${d}${state._scenes.length}`}
+        // context={this}
+        diceType={d}
+        size={150}
+        rendererSize={d === 100 ? 30 : 60}
+      />
+    );
     state._scenes.push(newDiceScene);
     this.setState(state);
-    console.log(this.state);
+  };
+  roll() {
+    let state = this.state;
+    debugger;
+    state.upToDate = false;
+    this.slowDownAllDice();
+    const diceObj = this.getDiceObject();
+    if (Object.keys(diceObj).length === 0 && diceObj.constructor === Object) {
+      alert("Please select dice to roll");
+      return;
+    }
+    for (let d in diceObj) {
+      let scenes = this.getScenesByDice(d);
+      let currentDice = diceObj[d];
+      let diceCount = 0;
+      while (diceCount < currentDice.quantity) {
+        const result = Math.ceil(Math.random() * currentDice.value);
+        currentDice.results.push(result);
+        scenes[diceCount].setResult(result);
+        diceCount++;
+      }
+      diceObj[d] = currentDice;
+    }
+    this.setDiceObject(diceObj);
+    // applyResults(diceObj);
   }
   render() {
     return (
       <div className="dice-app">
         <div className="title-box">
           <span className="main-title-dice">DND DICE ROLLER</span>
-          
-          <div id="img-box">{this.populateTopRowOfDisplayDice()}</div>
-            <div className="buttons-box">
-            <div className="button" id="reset-button" onClick={() => this.reset()}>reset</div>
+
+          <div id="img-box">{this.state.topRow}</div>
+          <div className="buttons-box">
+            <div
+              className="button"
+              id="reset-button"
+              onClick={() => this.reset()}
+            >
+              reset
+            </div>
             <div className="modifier-box">
               <div className="title">Modifier</div>
-              <div className="modifier arrow" id="modifier-down" onClick={() => this.modifierChange(-1)}>&lt;</div>
-              <div className="modifier number" id="modifier">{this.state.modifier}</div>
-              <div className="modifier arrow" id="modifier-up" onClick={() => this.modifierChange(1)}>&gt;</div>
+              <div
+                className="modifier arrow"
+                id="modifier-down"
+                onClick={() => this.modifierChange(-1)}
+              >
+                &lt;
+              </div>
+              <div className="modifier number" id="modifier">
+                {this.state.modifier}
+              </div>
+              <div
+                className="modifier arrow"
+                id="modifier-up"
+                onClick={() => this.modifierChange(1)}
+              >
+                &gt;
+              </div>
             </div>
-            <div className="button" id="button" onClick={() => this.roll}>roll</div>
-        </div>
-        <div className="animation-window col-sm-12" id="animations">{this.state._scenes}</div>
-        <div className="table col-md-6 col-sm-12" id="dice-table">
-
-          <div className="result-row title-row">
-            <div className="cell d-name title">dice</div>
-            <div className="cell d-quantity-select title">
-              number
+            <div className="button" id="button" onClick={() => this.roll()}>
+              roll
             </div>
           </div>
+          <div className="animation-window col-sm-12" id="animations">
+            {this.state._scenes}
+          </div>
+          <div className="table col-md-6 col-sm-12" id="dice-table">
+            <div className="result-row title-row">
+              <div className="cell d-name title">dice</div>
+              <div className="cell d-quantity-select title">number</div>
+            </div>
+          </div>
+          {this.applyResultsToPage()}
         </div>
-        {this.applyResultsToPage()}
-
-        </div>
-
-        
       </div>
     );
   }

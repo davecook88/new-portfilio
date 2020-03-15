@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 
 export default class Dice {
-    constructor(type, context, {color = 0xb50004, size = 250} = {}) {
+    constructor(type, {color = 0xb50004, size = 250} = {}) {
         this.size = size;
         this.color = color;
         this.type = type;
@@ -16,7 +16,7 @@ export default class Dice {
         this.spinSpeed = ((Math.random() * 5) + 2 ) / 100;              
         this.element = this.createDice();
         // Parent scene instance as context
-        this.context = context;
+        // this.context = context;
     }
     
     finalStates = {
@@ -129,7 +129,7 @@ export default class Dice {
 
         if (stopSpinning) {
           this.showAnswer = true;
-          this.context.updateSpinningStatusInApplication();
+        //   this.context.updateSpinningStatusInApplication();
         }
     }
 

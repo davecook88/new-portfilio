@@ -15,7 +15,7 @@ export default class DiceScene extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            context:props.context,
+            // context:props.context,
             result: props.result || 1,
             id: props.id || 0,
             diceType: props.diceType || 6,

@@ -11,12 +11,14 @@ class OpeningScreen extends Component{
         this.state = {
             text:face(),
             screenText:[],
-            intervalId:0
+            intervalId:null
+            
         }
+        
     }
 
     componentDidMount = () => {
-        this.typeText();
+        // this.typeText();
     }
 
     componentWillUnmount(){
@@ -57,7 +59,6 @@ class OpeningScreen extends Component{
         return skillsElements;
     }
     
-
     createSkillAndProgressBar = (skillName, percentage, id) => {
         const percentageStr = `${percentage}%`;
         const classNames = (() => {
@@ -96,8 +97,8 @@ class OpeningScreen extends Component{
             cursor += 1;
             if (cursor > this.state.text.length) clearInterval(intervalId);  
         },5);
-        this.setState({intervalId: intervalId});       
-             
+        
+        this.setState({intervalId: intervalId});  
     }
     
     render() {
