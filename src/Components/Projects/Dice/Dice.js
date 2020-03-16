@@ -8,6 +8,7 @@ export default class Dice {
         this.spin = true;
         this.slowDown = false;
         this.showAnswer = false;
+        this.result = null;
         this.axes = {
             x: Math.random() * 10,
             y: Math.random() * 10,
@@ -99,7 +100,9 @@ export default class Dice {
             this.element.rotation[a] = this.axes[a];
         }
     }
-
+    setResult(result){
+        this.result = result;
+    }
     spinAllAxes() {
       for (let a in this.axes){
         let axis = this.axes[a];
@@ -110,7 +113,6 @@ export default class Dice {
     }
 
     reduceRotationAllAxes() {
-        console.log(this);
       let stopSpinning = true;
         for (let a in this.axes){
             let axis = this.axes[a];
@@ -142,7 +144,7 @@ export default class Dice {
             y: Math.random() * 10,
             z: Math.random() * 10
       };
-      if(this.type === 100) this.context.d10.dice.startSpinning(slowDown);
+    //   if(this.type === 100) this.context.d10.dice.startSpinning(slowDown);
     }
 
 

@@ -1,0 +1,52 @@
+
+
+$logoSize: 60px;
+$logoFont: 'Racing Sans One', fantasy;
+$logoSubtitleFont: 'Fira Code', monospace;
+
+.logo{
+  font-size: 100px;
+  line-height: 45px;
+  width:50vw;
+  right: -50px;
+  top: 4px;
+  font-family: "Racing Sans One", fantasy;
+}
+.logo.box{
+  // width:50%;
+  position: relative;
+}
+.logo.holder{
+  position: fixed;
+  margin: auto;
+  bottom: auto;
+  box-sizing: border-box;
+}
+.logo-row{
+  display:block;
+  position: relative;
+}
+.logo-letter{
+  position: relative;
+}
+.logo.subtitle{
+  font-family:$logoSubtitleFont;
+  position: relative;
+}
+
+.first-name > span{
+  margin-left:1em;
+}
+.last-name > span{
+  margin-left: 2em;
+}
+
+
+.dark-blue-fade {
+  background: rgb(2,0,36);
+  background: linear-gradient(90deg, rgba(2,0,36,0) 0%, rgba(7,106,191,0.804359243697479) 48%, rgba(9,9,121,1) 90%);
+}
+.light-blue-fade {
+  background: rgb(2,0,36);
+background: linear-gradient(90deg, rgba(2,0,36,0) 0%, rgba(7,191,168,0.804359243697479) 45%, rgba(9,9,121,1) 100%);
+}

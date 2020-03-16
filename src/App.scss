@@ -5,7 +5,13 @@
   -o-transition: #{$str};
   transition: #{$str};      
 }
+@import url('https://fonts.googleapis.com/css?family=Fira+Code&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Racing+Sans+One&display=swap');
 
+a {
+  text-decoration: none;
+  color:#fff;
+}
 .absolute {
   position: absolute;
 }
@@ -56,4 +62,12 @@
 
 .slide-in-right > div  {
   right:0;
+}
+.footer-bar{
+  position:fixed;
+  bottom:0;
+  width:100vw;
+}
+.page-footer > div{
+  margin-bottom:0;
 }

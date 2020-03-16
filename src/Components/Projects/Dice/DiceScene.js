@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import * as THREE from 'three';
-import Dice from './Dice'
+import Dice from "./Dice";
+
 
 const ResultText = (props) => {
     return (
         <h1 
             className={`text-result d${props.type} ${props.classes}`}
             id={`d${props.type}-result-text`}>
-
+                {props.value}
         </h1>)
 }
 
@@ -16,33 +17,26 @@ export default class DiceScene extends Component {
         super(props);
         this.state = {
             // context:props.context,
-            result: props.result || 1,
             id: props.id || 0,
             diceType: props.diceType || 6,
-            d10:props.diceType === 100 ? <DiceScene 
-                                            key={`display-d100-d10`} 
-                                            context={this} 
-                                            diceType={10} 
-                                            size={props.size} 
-                                            rendererSize={props.rendererSize} 
-                                            /> : '',
+            resultTextClasses:'',
+            d10:props.diceType === 100 ? this.createD100() : '',
         }
-        // this.id = props.id || 0;
         this.size = this.calculateDiceSize(props.size);
         this.scene = this.createScene();
         this.camera = this.createCamera();
         this.renderer = this.createRenderer(props.rendererSize);
-        this.dice = new Dice(this.state.diceType, this, {size:this.diceSize});
     }
 
     componentDidMount(){
-        this.scene.add(this.dice.element);
+        this.scene.add(this.props.dice.element);
         this.mount.appendChild(this.renderer.domElement);
         this.threeRender();
     }
     addNewDice(){
         if (this.props.clickHandler){
             this.props.clickHandler(this.state.diceType);
+            if (this.state.diceType === 100) this.props.clickHandler(10);
         }
     }
     calculateDiceSize(size = 200){
@@ -55,6 +49,16 @@ export default class DiceScene extends Component {
         let camera = new THREE.OrthographicCamera( width / - 2, width / 2, height / 2, height / - 2, 1, 1000 )
         camera.position.z = 400;
         return camera;
+    }
+    createD100() {
+        const dice = new Dice(100,{size:this.props.size});
+        return <DiceScene 
+            key={`display-d100-d10`} 
+            diceType={10} 
+            dice={dice}
+            rendererSize={this.props.rendererSize} 
+            onClick={this.props.addNewDice}
+            />;
     }
     createRenderer(size){
         const renderer = new THREE.WebGLRenderer();
@@ -77,23 +81,32 @@ export default class DiceScene extends Component {
         return scene;
     }
     createResultTextClasses(){
-        return this.state.showResult ? ' show-result text-fade-in' : '';
+        const classes = this.props.dice.showAnswer ? ' show-result text-fade-in' : '';
+        console.log(classes);
+        console.log(this.props.dice.showAnswer)
+        return classes;
     }
     hideResult(){
-        this.setState({showResult: false});
+        if (this.state.showResult) {
+            this.props.showResultsOnPage(false);
+            this.setState({showResult: false});
+        }
     }
     showResult() {
-        this.setState({showResult: true});
+        if (!this.state.showResult) {
+            this.props.showResultsOnPage(true);
+            this.setState({showResult: true});
+        }
     }
     threeRender = () => {
         requestAnimationFrame(this.threeRender);
         this.renderer.render(this.scene, this.camera);
-        if (this.dice.slowDown) {
-            this.dice.reduceRotationAllAxes();
+        if (this.props.dice.slowDown) {
+            this.props.dice.reduceRotationAllAxes();
         } else {
-            this.dice.spinAllAxes();
+            this.props.dice.spinAllAxes();
         }
-        if (this.dice.showAnswer) {
+        if (this.props.dice.showAnswer) {
           this.showResult();
         } else {
           this.hideResult();
@@ -104,15 +117,16 @@ export default class DiceScene extends Component {
             
             <div 
                 ref={ref => this.mount = ref}
-                className={`canvas-box d${this.state.diceType}`}//${this.extraClassNames}
+                className={`canvas-box d${this.props.dice.type}`}//${this.extraClassNames}
                 id={`canvas-box-`}//${toString(this.state.id)}
                 onClick={() => this.addNewDice()}
                 >
                 <ResultText 
-                    class={() => this.createResultTextClasses()}
-                    type={() => this.state.diceType}
+                    classes={this.state.showResult ? ' show-result text-fade-in' : '' }
+                    type={this.props.dice.type}
+                    value={this.props.dice.result}
                     >
-                        {() => this.state.result}
+                        
                 </ResultText>
                 {this.state.d10}
             </div>

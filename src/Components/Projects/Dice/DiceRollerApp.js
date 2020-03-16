@@ -2,18 +2,20 @@ import React, * as react from "react";
 import "./dice.css";
 import DiceScene from "./DiceScene";
 import Dice from "./Dice";
+import { Col, Row} from "react-materialize";
 
 export default class DiceRollerApp extends react.Component {
   constructor(props) {
     super(props);
     this.state = {
-      _diceRows: {},
+      _dice:[],
       _resultsText: [],
       _scenes: [],
+      _results: [],
       topRow:[],
       stillSpinning: true,
       modifier: 0,
-      upToDate: false
+      showResults: false
     };
   }
   componentDidMount() {
@@ -22,59 +24,27 @@ export default class DiceRollerApp extends react.Component {
   }
   
   applyResultsToPage() {
-    const scenes = this.state._diceRows;
-    let results = [];
-    let grandTotal = 0;
-    for (let s in scenes) {
-      let total = 0;
-      let currentDice = scenes[s];
-      var resultsArray = currentDice.map((scene, i) => {
-        let r = scene.result;
-        if (scene.type === 100) {
-          r = parseInt(r) + scene.d10.result;
-        }
-        if (r === 20) {
-          return (
-            <strong style={{ color: 0xb50004 }} key={i}>
-              {r}
-            </strong>
-          );
-        } else {
-          return <span key={i}>{r}</span>;
-        }
-        total += r;
-      });
-      const resultHolder = (
-        <div key={`results-${s}`}>
-          {resultsArray}
-          {currentDice.length > 1 ? <div> Total: ${total} </div> : ""}
-        </div>
-      );
-      results.push(resultHolder);
-      grandTotal += total;
+    const resultsOutput = () => {
+      let results = [];
+      for (let d in this.state._dice){
+        results.push(`${this.state._dice[d].type}: ${this.state._results[d]}`)
+      }
+      return <p>{results.join(', ')}</p>
     }
-    const ModifierDiv = () =>
-      this.state.modifier ? (
-        <div className="modifier-result">Modifier: {this.state.modifier}</div>
-      ) : (
-        <div></div>
-      );
-    const GrandTotalElement = () => (
-      <p>
-        <strong>
-          Grand Total: ${parseInt(grandTotal) + parseInt(this.state.modifier)}
-        </strong>
-      </p>
-    );
-
-    // this.setState({ upToDate: true });
-    return (
-      <div>
-        {results}
-        <ModifierDiv />
-        <GrandTotalElement />
-      </div>
-    );
+    const totalOutput = () => {
+      const total = this.state._results.reduce((a,b) => a + b);
+      return `Total: ${total}`;
+    }
+    const grandTotalOutput = ()=>{
+      const total = this.state._results.reduce((a,b) => a + b);
+      return total + this.state.modifier;
+    }
+    return (<div>
+      <div className="individual-dice-results">{resultsOutput()}</div>
+      <div className="total">{totalOutput()}</div>
+      <div className="modifier">{`Modifier: ${this.state.modifier}`}</div>
+      <div className="grand-total"><strong>{grandTotalOutput()}</strong></div>
+    </div>)
   }
   checkIfAllDiceStoppedSpinning() {
     let stopped = true;
@@ -138,12 +108,12 @@ export default class DiceRollerApp extends react.Component {
   }
   reset() {
     this.setState({
-      _diceRows: {},
-      _resultsText: [],
-      _scenes: {},
+      _dice: [],
+      _scenes: [],
+      _results:[],
       stillSpinning: true,
       modifier: 0,
-      upToDate: false
+      showResults: false
     });
   }
   getScenesByDice(dice) {
@@ -157,9 +127,9 @@ export default class DiceRollerApp extends react.Component {
   }
   slowDownAllDice() {
     let state = this.state;
-    for (let s in state._scenes) {
-      let scene = state._scenes[s];
-      scene.forEach(s => s.dice.startSpinning(true));
+    for (let d in state._dice) {
+      let dice = state._dice[d];
+      dice.startSpinning(true);
     }
   }
   rollAllDice() {
@@ -168,30 +138,7 @@ export default class DiceRollerApp extends react.Component {
       scene.forEach(s => s.dice.startSpinning(false));
     }
   }
-  updateAnimatedDice = () => {
-    const realDice = ["d4", "d6", "d8", "d10", "d12", "d20", "d100"];
-    let state = this.state;
-    debugger;
-    // const animationBox = document.getElementById('animations');
-    for (let d in state._diceRows) {
-      if (realDice.includes(d)) {
-        const diceNumber = parseInt(d.slice(1));
-        const scenesSoFar = state._scenes[d] || [];
-        const numberOfDice = this.getNumberOfDice(d);
-        if (scenesSoFar.length < numberOfDice) {
-          const dice = new Dice(diceNumber)
-          const scene = new DiceScene(this, diceNumber, this);
-          let scenesArray = this.getScenesByDice(d);
-          scenesArray.push(scene);
-          this.setScenesByDice(d, scenesArray);
-        } else if (scenesSoFar.length > numberOfDice) {
-          while (scenesSoFar.length > numberOfDice) {
-            scenesSoFar.pop();
-          }
-        }
-      }
-    }
-  };
+
   modifierChange(n) {
     let state = this.state;
     state.modifier += n;
@@ -200,13 +147,15 @@ export default class DiceRollerApp extends react.Component {
   populateTopRowOfDisplayDice() {
     const diceNumbers = [4, 6, 8, 10, 12, 20, 100];
     let scenesArray = diceNumbers.map(d => {
+      const dice = new Dice(d, {size:200})
       return (
         <DiceScene
           key={`display-d${d}`}
-          context={this}
-          diceType={d}
-          size={150}
-          rendererSize={d === 100 ? 30 : 60}
+          dice={dice}
+          // context={this}
+          diceType={dice.type}
+          // size={150}
+          rendererSize={d === 100 ? 25 : 50}
           clickHandler={this.handleClickDisplayDice}
         />
       );
@@ -215,42 +164,38 @@ export default class DiceRollerApp extends react.Component {
   }
   handleClickDisplayDice = d => {
     let state = this.state;
+    const rendererSize = d === 100 ? 30 : 60;
+    const dice = new Dice(d,{size:250})
     const newDiceScene = (
       <DiceScene
         key={`d${d}${state._scenes.length}`}
-        // context={this}
-        diceType={d}
-        size={150}
-        rendererSize={d === 100 ? 30 : 60}
+        dice={dice}
+        rendererSize={rendererSize}
+        showResultsOnPage={this.showResultsOnPage}
       />
     );
     state._scenes.push(newDiceScene);
+    state._dice.push(dice);
     this.setState(state);
   };
   roll() {
     let state = this.state;
-    debugger;
-    state.upToDate = false;
+    state._results = [];
     this.slowDownAllDice();
-    const diceObj = this.getDiceObject();
-    if (Object.keys(diceObj).length === 0 && diceObj.constructor === Object) {
+    if (state._dice.length === 0) {
       alert("Please select dice to roll");
       return;
     }
-    for (let d in diceObj) {
-      let scenes = this.getScenesByDice(d);
-      let currentDice = diceObj[d];
-      let diceCount = 0;
-      while (diceCount < currentDice.quantity) {
-        const result = Math.ceil(Math.random() * currentDice.value);
-        currentDice.results.push(result);
-        scenes[diceCount].setResult(result);
-        diceCount++;
-      }
-      diceObj[d] = currentDice;
+    for (let d in state._dice) {
+      let currentDice = state._dice[d];
+      const result = Math.ceil(Math.random() * currentDice.type);
+      state._results.push(result);
+      currentDice.setResult(result);
     }
-    this.setDiceObject(diceObj);
-    // applyResults(diceObj);
+    this.setState(state);
+  }
+  showResultsOnPage = (bool) => {
+    this.setState({showResults:bool});
   }
   render() {
     return (
@@ -291,17 +236,18 @@ export default class DiceRollerApp extends react.Component {
               roll
             </div>
           </div>
-          <div className="animation-window col-sm-12" id="animations">
-            {this.state._scenes}
-          </div>
-          <div className="table col-md-6 col-sm-12" id="dice-table">
-            <div className="result-row title-row">
-              <div className="cell d-name title">dice</div>
-              <div className="cell d-quantity-select title">number</div>
-            </div>
-          </div>
-          {this.applyResultsToPage()}
+          <Row>
+            <Col s={8}>
+              <div className="animation-window col-sm-12" id="animations">
+                {this.state._scenes}
+              </div>
+            </Col>
+            <Col s={4}>
+              {this.state.showResults ? this.applyResultsToPage() : ''}
+            </Col>
+          </Row>
         </div>
+        
       </div>
     );
   }

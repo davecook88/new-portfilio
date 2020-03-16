@@ -229,7 +229,7 @@
     
   }
   
-  @import url('https://fonts.googleapis.com/css?family=Fira+Code&display=swap');
+  
   $titleFont:'Fira Code';
   $txtColor: lawngreen;
   
@@ -257,55 +257,14 @@
     text-align: center;
     font-size: 10px;
   }
-
-  .social-media-button {
-    padding:0.4em;
-  }
-  .fab {
-    font-size: 16px;
-    color:lawngreen;
-  }
-  .fab:hover {
-    
-    color:#fff;
-  }
-  .fa-facebook:hover {
-    color:#3b5998;
-  }
-  .fa-twitter:hover {
-    color:#55acee;
-  }
-  .fa-linkedin:hover {
-    color:#007bb5;
-  }
-  .fa-youtube:hover {
-    color:#c4302b;
-  }
-  .fa-github:hover {
-    color:#fff;
-  }
-  .green-link {
-    text-decoration:none;
-    color:$txtColor;
-    font-size: 12px;
-  }
-  .green-link:hover {
-    color:#fff;
-  }
-  .social-media-bar {
-    display: inline-flex;
-    z-index: 3;
-  }
-  
-  .social-media-button{
-    font-size: 0.6em;
-    margin: 0.5em;
-    flex:auto;
+  .tall-80{
+    height: 10em;
   }
 
   .skill{
     display: inline-flex;
-    font-size: 0.8em;
+    
+    font-size: 1em;
     width: 40%;
     font-family: $titleFont, monospace;
     justify-content: space-between;

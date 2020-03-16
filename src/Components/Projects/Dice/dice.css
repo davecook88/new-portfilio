@@ -1,13 +1,16 @@
 .dice-app{
   text-align:center;
+  font-family: fantasy;
 }
+
 .dice-body {
     max-width: 600px;
     margin: auto;
     min-height: 600px;
+    
   }
   .main-title-dice {
-    font-size:14px;
+    font-size:28px;
   }
 
   hr {
@@ -250,7 +253,7 @@
       top:30%;
       opacity: 0;
       margin:0;
-      font-size:25px;
+      font-size:14px;
   }
   .text-fade-in {
     transition: opacity 0.5s;
@@ -260,7 +263,7 @@
     left: 32%;
     transform: rotateX(-3deg);
     transform: rotate3d(1, 2.2, 1, 20deg);
-    font-size: 37px;
+    font-size: 18px;
     top: 32%;
   }
   .text-result.d6 {
@@ -276,7 +279,7 @@
   }
   .text-result.d10{
     left: 50%;
-    font-size: 26px;
+    font-size: 16px;
     top: 35%;
     transform: rotate(79deg);
   }
@@ -293,9 +296,9 @@
   }
   .text-result.d20{
     left: 48%;
-    top: 46%;
+    top: 38%;
     transform: rotate3d(0.2, 1, 1, -40deg);
-    font-size: 22px;
+    font-size: 16px;
   }
   .show-result {
       opacity: 1;

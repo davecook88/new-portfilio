@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { face } from '../../static/facepic.js';
-import SocialMediaBar from './../SocialMedia/SocialMedia'
 import { Row, Col } from 'react-materialize';
 import DiceRollerApp from '../Projects/Dice/DiceRollerApp';
 import TestThree from '../Projects/ThreeJS/test'
@@ -11,18 +10,17 @@ class OpeningScreen extends Component{
         this.state = {
             text:face(),
             screenText:[],
-            intervalId:null
-            
+                       
         }
-        
+        this.intervalId = '';
     }
 
-    componentDidMount = () => {
-        // this.typeText();
+    componentDidMount(){
+        this.typeText();
     }
 
     componentWillUnmount(){
-        clearInterval(this.state.intervalId);
+        clearInterval(this.intervalId);
     }
 
     createSkillSections =() => {
@@ -98,7 +96,9 @@ class OpeningScreen extends Component{
             if (cursor > this.state.text.length) clearInterval(intervalId);  
         },5);
         
-        this.setState({intervalId: intervalId});  
+        // this.setState({intervalId: intervalId});       
+        // console.log(this.state.intervalId);  
+        this.intervalId = intervalId;
     }
     
     render() {
@@ -115,31 +115,18 @@ class OpeningScreen extends Component{
                         </div>
                     </Col>
                     <Col s={9}>
-                        <div className="main-screen">
-                            <span className="code-title">web design - scripting - automation</span>
-                            <p>Four years' experience creating beautiful, responsive websites and providing automation solutions for
-                                businesses.
-                            </p>
-                            <ul>
-                                <li>Automate repetitive tasks and increase your productivity.</li>
-                                <li>Eliminate human error with automation.</li>
-                                <li>Integrate online APIs.</li>
-                                <li>Improve your efficiency.</li>
-                            </ul>
-                            <p>
-                                Scroll down to see examples of my work.
-                            </p>
-                        </div>
+                    <div className="main-screen">
+                        <span className="code-title">web design - scripting - automation</span>
+                        <p>Four years' experience creating beautiful, responsive websites and providing automation solutions for
+                            businesses.
+                        </p>
+                    </div>
                     </Col>
                     
                     
                 </Row>
                 <Row>
-                    <Col s={3} className="text-center">
-                        <a style={{textDecoration:`none`, fontSize:`12px`}} className="code-text" href="mailto:davecook@hotmail.co.uk">davecook@hotmail.co.uk</a>
-                        <SocialMediaBar />
-                    </Col> 
-                    <Col s={9} className="text-center">
+                    <Col s={12} className="text-center">
                         {this.createSkillSections()}
                     </Col>                   
                 </Row>
