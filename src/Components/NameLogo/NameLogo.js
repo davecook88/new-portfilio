@@ -5,16 +5,16 @@ import { Row, Col } from 'react-materialize';
 export default class NameLogo extends Component {
   render() {
     return (
-      <div >
+      <div>
         
         <Row>
-          <div className="logo box first-name  slide-in-right dark-blue-fade">
+          <div className={`${this.props.position === 0 ? 'normal' : 'small'} logo box first-name  slide-in-right dark-blue-fade`}>
             <span className="logo-letter " id="Dave">DAVE</span>
           </div>
         </Row>
         
         <Row>
-          <div className="logo box last-name slide-in-right light-blue-fade">
+          <div className={`${this.props.position === 0 ? 'normal' : 'small'} logo box last-name slide-in-right light-blue-fade`}>
             <span className="logo-letter" id="C">COOK</span>
           </div>
         </Row>

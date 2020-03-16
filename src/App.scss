@@ -7,10 +7,15 @@
 }
 @import url('https://fonts.googleapis.com/css?family=Fira+Code&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Racing+Sans+One&display=swap');
-
+.App{
+  overflow-x: hidden;
+}
 a {
   text-decoration: none;
   color:#fff;
+}
+section{ 
+  height:100vh;
 }
 .absolute {
   position: absolute;
@@ -67,7 +72,17 @@ a {
   position:fixed;
   bottom:0;
   width:100vw;
+  padding-top:0.5em
 }
-.page-footer > div{
+.page-footer > .container > .row{
   margin-bottom:0;
+  padding-bottom:0;
+}
+.social-media-bar{
+  display:flex;
+  flex-flow: row-reverse;
+}
+.social-media-button {
+  padding: 0 0.5em 0 0.5em;
+  font-size:1.5em;
 }

@@ -1,4 +1,10 @@
-
+@mixin transition($str) {
+  -webkit-transition: #{$str};
+  -moz-transition: #{$str};
+  -ms-transition: #{$str};
+  -o-transition: #{$str};
+  transition: #{$str};      
+}
 
 $logoSize: 60px;
 $logoFont: 'Racing Sans One', fantasy;
@@ -6,11 +12,20 @@ $logoSubtitleFont: 'Fira Code', monospace;
 
 .logo{
   font-size: 100px;
-  line-height: 45px;
-  width:50vw;
-  right: -50px;
+  line-height: 45px;  
+  right: 0;
   top: 4px;
   font-family: "Racing Sans One", fantasy;
+  top: 4px;
+  font-family: "Racing Sans One", fantasy;
+  text-align: right;
+  @include transition('all 1s ease-in');
+}
+.small {
+  font-size: 75px;
+  line-height: 35px;
+  // right: -60px;/
+  
 }
 .logo.box{
   // width:50%;
@@ -35,10 +50,10 @@ $logoSubtitleFont: 'Fira Code', monospace;
 }
 
 .first-name > span{
-  margin-left:1em;
+  margin-right:2.5em;
 }
 .last-name > span{
-  margin-left: 2em;
+  margin-right: 1.5em
 }
 
 
