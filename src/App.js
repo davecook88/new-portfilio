@@ -24,23 +24,23 @@ class App extends React.Component {
       updated: false,
       position: 0,
       laptopStyle: calculateInlineStyle(),
-      menuOpen:'open',
+      menuIsOpen:true,
     };
   }
-  setPosition(waypoint, {force = false} = {}) {
+  setPosition(waypoint, {force = false} = {}) {    
     const { position } = this.state;
     const newPosition = force? waypoint : position === waypoint ? waypoint + 1: waypoint;
     console.log(position, waypoint, newPosition);
-    this.setState({ position: newPosition });
+    const menuPosition = newPosition === 0 ? true : false;
+    this.setState({ position: newPosition, menuIsOpen:menuPosition });
   }
   setMenuOpenStatus = (newStatus) => {
-    let status = () => {
-      if (!newStatus){
-       return  this.state.menuOpen !== 'open' ? 'open' : 'closed';
-      }
-      return newStatus;
+    if (newStatus === undefined) {
+      const newStatus = !this.props.menuIsOpen;
+      this.setState({ menuIsOpen: newStatus });
+    } else {
+      this.setState({ menuIsOpen: newStatus });
     }
-    this.setState({menuOpen:status});
   }
   updateLaptopStyle(modifiers) {
     console.log(modifiers);
@@ -54,7 +54,7 @@ class App extends React.Component {
       <div className="App">
         <NavButton 
           position={this.state.position}
-          open={(this.state.menuOpen === 'open')}
+          open={this.state.menuIsOpen}
           toggleMenu={this.setMenuOpenStatus}
         />
         <div className="logo holder">

@@ -5,6 +5,9 @@
   -o-transition: #{$str};
   transition: #{$str};      
 }
+.review-holder{
+  overflow: hidden;
+}
 .review {
   width: 24%;
   padding: 1em;

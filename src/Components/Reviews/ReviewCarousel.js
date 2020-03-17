@@ -51,8 +51,6 @@ export default class ReviewCarousel extends Component {
   changeReview() {
     
     let {reviewIndex, reviews } = this.state;
-    console.log(reviews);
-    // debugger;
     reviewIndex = reviewIndex < reviews.length - 1 ? ++reviewIndex : 0;
     this.setState({reviewIndex:reviewIndex});
   }
@@ -72,7 +70,7 @@ export default class ReviewCarousel extends Component {
   }
   render() {
     return (
-      <div>
+      <div className="review-holder">
         {this.createReviewElements()}
       </div>
     )

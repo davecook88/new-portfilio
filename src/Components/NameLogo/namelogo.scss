@@ -17,6 +17,7 @@ $logoSubtitleFont: 'Fira Code', monospace;
   padding-top:5px;
   font-family: "Racing Sans One", fantasy;
   text-align: right;
+  margin-top: 10px;
   @include transition('all 1s ease-in');
 }
 .small {
