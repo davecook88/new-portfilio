@@ -5,3 +5,64 @@
   -o-transition: #{$str};
   transition: #{$str};      
 }
+
+.navbutton{
+  height: 5em;
+  position: fixed;
+  width: 5em;
+  border-radius: 50%;
+  margin: 0.5em;
+  z-index: 50;
+  background-color: #2196F3;
+  padding: 0.75em;
+}
+.navbutton > .menu-bar {
+  position: absolute;
+  width: 50vw;
+  padding-left: 2em;
+  margin-left: 2.5em;
+  background: linear-gradient(90deg, rgba(33,150,243,1) 38%, rgba(33,150,243,0.5718662464985995) 80%, rgba(26,35,126,0) 100%);  
+}
+.menu-bar > ul{
+  position: relative;
+  padding:0em;
+  display: flex;
+}
+
+.menu-bar > ul > li {
+  padding: 0 1em;
+  cursor: pointer;
+}
+.menu-bar > ul > li:hover {
+  font-weight: bold;
+}
+.nav-line-holder{
+  position: relative;
+  height:3em;
+  width:3em;
+}
+.nav-line{
+  width: 65%;
+  height: 5px;
+  position: absolute;
+  left: 1em;
+  @include transition('all 1s ease-in-out');
+}
+.nav-line.one.open-arrow{    
+  bottom: 25%;
+  transform: rotate(135deg);
+}
+.nav-line.two.open-arrow{
+  top: 25%;
+  transform: rotate(45deg);
+}
+.nav-line.one.closed-cross{
+  top: 50%;
+  transform: rotate(135deg);
+}
+.nav-line.two.closed-cross{
+  top: 50%;
+  transform: rotate(45deg);
+}
+
+//rgb(26,35,126)
