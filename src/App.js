@@ -1,11 +1,11 @@
 import React from "react";
 import "materialize-css/dist/css/materialize.min.css";
 import "materialize-css/dist/js/materialize.min.js";
-import NavbarFull from "./Components/Navbar/Navbar.component.js";
 import { Waypoint } from "react-waypoint";
 import calculateInlineStyle from "./Components/Laptop/calculateLaptopStyle";
 import Laptop from "./Components/Laptop/Laptop";
 import SocialMediaBar from "./Components/SocialMedia/SocialMedia";
+import ReviewCarousel from './Components/Reviews/ReviewCarousel'
 import { Row, Col, Container } from "react-materialize";
 import NameLogo from "./Components/NameLogo/NameLogo";
 import "./App.scss";
@@ -13,7 +13,7 @@ const smallModifiers = {
   heightModifier: 0.45,
   widthModifier: 0.42,
   leftModifier: 0.1,
-  topModifier: 0.02
+  topModifier: 0.1
 };
 const style = calculateInlineStyle(smallModifiers);
 class App extends React.Component {
@@ -25,9 +25,11 @@ class App extends React.Component {
       laptopStyle: calculateInlineStyle()
     };
   }
-  setPosition(obj) {
-    console.log(obj);
-    this.setState({ position: 1 });
+  setPosition(waypoint, {force = false} = {}) {
+    const { position } = this.state;
+    const newPosition = force? waypoint : position === waypoint ? waypoint + 1: waypoint;
+    console.log(position, waypoint, newPosition);
+    this.setState({ position: newPosition });
   }
   updateLaptopStyle(modifiers) {
     console.log(modifiers);
@@ -43,26 +45,17 @@ class App extends React.Component {
           <NameLogo position={this.state.position} />
         </div>
         <div className="laptop-wrapper">
+          
           <Laptop style={style} position={this.state.position} />
         </div>
-        
-        <section id="first">
-          <div>
-            <ul>
-              <li>Automate repetitive tasks and increase your productivity.</li>
-              <li>Eliminate human error with automation.</li>
-              <li>Integrate online APIs.</li>
-              <li>Improve your efficiency.</li>
-            </ul>
-            <p>Scroll down to see examples of my work.</p>
-          </div>
+        <Waypoint scrollableAncestor="window" onEnter={() => {this.setPosition(0, {force: true})}}/>
+        <section id="first">              
+          {this.state.position < 2 ? <ReviewCarousel /> : ''}
         </section>
-
-
+          <Waypoint scrollableAncestor="window" onEnter={() => {this.setPosition(0)}}/>
+        
         <section id="second" className="full-screen"></section>
-        <Waypoint onEnter={props => {
-          if (props.event) console.log(props);
-        } }></Waypoint>
+
         <section id="third" className="full-screen"></section>
         <div className="footer-bar teal">
           <Container>

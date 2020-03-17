@@ -14,9 +14,7 @@ $logoSubtitleFont: 'Fira Code', monospace;
   font-size: 100px;
   line-height: 45px;  
   right: 0;
-  top: 4px;
-  font-family: "Racing Sans One", fantasy;
-  top: 4px;
+  padding-top:5px;
   font-family: "Racing Sans One", fantasy;
   text-align: right;
   @include transition('all 1s ease-in');
@@ -30,12 +28,16 @@ $logoSubtitleFont: 'Fira Code', monospace;
 .logo.box{
   // width:50%;
   position: relative;
+  
 }
 .logo.holder{
   position: fixed;
   margin: auto;
   bottom: auto;
   box-sizing: border-box;
+  background: rgb(255,255,255);
+  z-index: 99;
+  background: linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6615021008403361) 27%, rgba(255,255,255,1) 70%);
 }
 .logo-row{
   display:block;
@@ -47,6 +49,10 @@ $logoSubtitleFont: 'Fira Code', monospace;
 .logo.subtitle{
   font-family:$logoSubtitleFont;
   position: relative;
+  text-align:center;
+  font-size: 12px;
+  // max-width: 20em;
+  line-height:12px;
 }
 
 .first-name > span{

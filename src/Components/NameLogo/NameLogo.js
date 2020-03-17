@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './namelogo.scss';
-import { Row, Col } from 'react-materialize';
+import { Row } from 'react-materialize';
 
 export default class NameLogo extends Component {
   render() {
@@ -19,11 +19,13 @@ export default class NameLogo extends Component {
           </div>
         </Row>
     
-        {/* <Row>
+        <Row>
           <div className="logo subtitle full-row">
-            <span className="gren-text darken-4">codes</span>
+            <span className='intro-text'>
+                  <p>Don't waste any more time on repetitive tasks.</p>
+            </span>
           </div>
-        </Row> */}
+        </Row>
       </div>
     )
   }

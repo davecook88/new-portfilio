@@ -9,6 +9,7 @@
 @import url('https://fonts.googleapis.com/css?family=Racing+Sans+One&display=swap');
 .App{
   overflow-x: hidden;
+  font-family: 'Fira Code';
 }
 a {
   text-decoration: none;
@@ -48,11 +49,6 @@ section{
   position: relative;  
   background-size: cover;
 }
-
-.world-map {
-  background-image: url('./static/World_map_\(blue_dots\).svg');
-}
-
 
 .outer-textbox {
   height:20em;
