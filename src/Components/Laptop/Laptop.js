@@ -24,7 +24,7 @@ export default class Laptop extends Component {
     }
     getBackgroundColorClass = () => {
         switch (this.props.position){
-            case 2:
+            case 3:
                 return 'white static';
             default:
                 return 'black static'

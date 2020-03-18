@@ -145,7 +145,7 @@ export default class DiceRollerApp extends react.Component {
     this.setState(state);
   }
   populateTopRowOfDisplayDice() {
-    const diceNumbers = [4, 6, 8, 10, 12, 20, 100];
+    const diceNumbers = [6, 8, 10, 12, 20];
     let scenesArray = diceNumbers.map(d => {
       const dice = new Dice(d, {size:200})
       return (

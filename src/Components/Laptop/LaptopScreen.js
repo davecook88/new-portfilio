@@ -3,6 +3,7 @@ import { face } from '../../static/facepic.js';
 import { Row, Col } from 'react-materialize';
 import DiceRollerApp from '../Projects/Dice/DiceRollerApp';
 import TestThree from '../Projects/ThreeJS/test'
+import '../../static/lakarencita.PNG';
 
 class OpeningScreen extends Component{
     constructor(props){
@@ -134,22 +135,33 @@ class OpeningScreen extends Component{
 
 }
 
+const LaKarencita = () => {
+    return(
+        <div><img src="../../static/lakarencita.PNG" alt="la karencita"></img></div>
+    )
+}
+
 export default class LaptopScreen extends Component {
     showScreen = () => {
         switch(this.props.position) {
             case 0:
                 return <OpeningScreen />
-            case 1:
+            case 1 || 2:
                 return <TestThree />;
-            case 2:
+            case 3:
                 return <DiceRollerApp />;
+            case 4:
+                return <LaKarencita />;
             default:
                 return <div></div>;
         }
     }
     render() {
         return (
-            <div className={`relative ${this.props.position > 1 ? 'white' : ''}` }>
+            <div 
+                className={`relative 
+                    ${this.props.position > 1 ? 'white' :''}`
+                    }>
                 {this.showScreen(this.props.position)}
             </div>
         )

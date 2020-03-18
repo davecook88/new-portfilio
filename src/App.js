@@ -6,7 +6,8 @@ import calculateInlineStyle from "./Components/Laptop/calculateLaptopStyle";
 import NavButton from './Components/NavButton/NavButton';
 import Laptop from "./Components/Laptop/Laptop";
 import SocialMediaBar from "./Components/SocialMedia/SocialMedia";
-import ReviewCarousel from './Components/Reviews/ReviewCarousel'
+import ReviewCarousel from './Components/Reviews/ReviewCarousel';
+import ContentCard from './Components/ContentCard/ContentCard';
 import { Row, Col, Container } from "react-materialize";
 import NameLogo from "./Components/NameLogo/NameLogo";
 import "./App.scss";
@@ -30,7 +31,6 @@ class App extends React.Component {
   setPosition(waypoint, {force = false} = {}) {    
     const { position } = this.state;
     const newPosition = force? waypoint : position === waypoint ? waypoint + 1: waypoint;
-    console.log(position, waypoint, newPosition);
     const menuPosition = newPosition === 0 ? true : false;
     this.setState({ position: newPosition, menuIsOpen:menuPosition });
   }
@@ -66,14 +66,34 @@ class App extends React.Component {
         </div>
         <Waypoint scrollableAncestor="window" onEnter={() => {this.setPosition(0, {force: true})}}/>
         <section id="first">              
-          {this.state.position < 2 ? <ReviewCarousel /> : ''}
+          {this.state.position < 1 ? <ReviewCarousel /> : ''}
         </section>
-          <Waypoint scrollableAncestor="window" onEnter={() => {this.setPosition(0)}}/>
+        <Waypoint scrollableAncestor="window" onEnter={() => {this.setPosition(0)}}/>
         
-        <section id="second" className="full-screen"></section>
+        <section id="second" className="full-screen">
+          {this.state.position < 3 ? <ContentCard type={'jsSkills'} position={this.state.position} slide={true}/> : ''}
+        </section>
+        <Waypoint scrollableAncestor="window" onEnter={() => {this.setPosition(1)}}/>
+        <section className="buffer" />
 
-        <section id="third" className="full-screen"></section>
+
+        <Waypoint scrollableAncestor="window" onEnter={() => {this.setPosition(2)}}/>
+        <section id="third" className="full-screen">
+          
+          {this.state.position > 2  ? 
+              <ContentCard type={'diceApp'} position={this.state.position} slide={false}/> :
+              ''}
+        </section>
+        <Waypoint scrollableAncestor="window" onEnter={() => {this.setPosition(3)}}/>
+        <section id="fourth" className="full-screen">
+          
+          {this.state.position > 3  ? 
+              <ContentCard type={'laKarencita'} position={this.state.position} slide={false}/> :
+              ''}
+        </section>
+
         <div className="footer-bar teal">
+        <div className="footer-bar teal"></div>
           <Container>
             <Row>
               <Col s={12} m={6}>

@@ -33,6 +33,7 @@ $logoSubtitleFont: 'Fira Code', monospace;
 }
 .logo.holder{
   position: fixed;
+  width:40vw;
   margin: auto;
   bottom: auto;
   box-sizing: border-box;
@@ -40,6 +41,7 @@ $logoSubtitleFont: 'Fira Code', monospace;
   z-index: 99;
   background: linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6615021008403361) 27%, rgba(255,255,255,1) 70%);
 }
+
 .logo-row{
   display:block;
   position: relative;
