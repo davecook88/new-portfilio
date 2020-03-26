@@ -27,6 +27,17 @@
   right: 2em;
   @include transition('all 0.75s ease-in');
 }
-// .slide-out {
-//   right: -20em;
-// }
+@media only screen and (max-width: 600px) {
+  .content{
+    position: relative;
+    top:unset;
+    right:unset;
+    max-width: unset;
+    text-align:center;
+  }
+  .content.scroll{
+    position: relative;
+    max-width: unset;
+    margin:auto;
+  }
+}

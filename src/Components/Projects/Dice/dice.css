@@ -303,3 +303,22 @@
   .show-result {
       opacity: 1;
   }
+
+  @media only screen and (max-width: 800px) {
+    .main-title-dice {
+      font-size: 15px;
+    }
+    .button{
+      margin-top: 0;
+      padding:0.5;
+    }
+    .buttons-box {
+      height:unset;
+    }
+    .text-result {
+      top:25%;
+    }
+    .modifier-box>.title{
+      display: none;
+    }
+  }

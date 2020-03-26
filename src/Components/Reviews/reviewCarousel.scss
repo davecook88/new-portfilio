@@ -25,3 +25,13 @@
 .review-text{
   text-align:justify;
 }
+
+@media only screen and (max-width: 600px) {
+  .review {
+    right:0;
+    width:unset;
+    top:unset;
+    bottom:12%;
+    margin:1em;
+  }
+}

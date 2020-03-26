@@ -53,7 +53,7 @@ export default class SocialMediaBar extends Component{
       return elementArray;
     }
     getClassNames = (props) => {
-      return `social-media-bar ${props.classes}`
+      return `social-media-bar  text-center ${props.classes}`
     }
     render () {
       return (

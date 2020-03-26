@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import LaptopScreen from './LaptopScreen'
 import './laptop.scss'
 
-
 const Button = (props) => {
     return (<div className="laptop-key" onClick={()=> props.onClick(props.character)}>
         <span className="laptop-letter">{props.character}</span>
@@ -10,6 +9,22 @@ const Button = (props) => {
 }
 
 export default class Laptop extends Component {
+    constructor(props) {
+        super(props);
+        this.state= {
+            screenHeight: null,
+            screenWidth:null,
+            style:null,
+            floatUpStyle: null
+        }
+    }
+
+    componentDidMount() {
+        const style = this.props.style;
+        const height = (style.height * 0.85);
+        const width = (style.width * 0.9);
+        this.setState({screenHeight:height, screenWidth:width});
+    }
     
     onKeyClick = (keyPressed) => {        
         let screenText = this.state.text + keyPressed;
@@ -23,29 +38,26 @@ export default class Laptop extends Component {
         })
     }
     getBackgroundColorClass = () => {
-        switch (this.props.position){
-            case 3:
-                return 'white static';
-            default:
-                return 'black static'
-
-        }
-    }
+        if (this.props.position > 2)  return 'white no-padding';
+        return 'black static';
+    }   
     
-    
-
     render() {
         return (
-            <div className="laptop-drawing fixed screen-center"  
+            <div className={`laptop-drawing fixed screen-center` }
                 style={this.props.style}>  
                 <div className="laptop-screen-outer">
                     <div className="laptop-camera">
                     <div></div>
                     </div>
-                    <div className={`laptop-screen-inner ${this.getBackgroundColorClass()}`}onClick={this.typeText}>
+                    <div 
+                        className={`laptop-screen-inner ${this.getBackgroundColorClass()}`}
+                        onClick={this.typeText}
+                        ref={ (divElement) => { this.divElement = divElement } }
+                        >
                         
                         <div id="screen">
-                            <LaptopScreen position={this.props.position} />
+                            <LaptopScreen position={this.props.position} screenHeight={this.state.screenHeight} />
                         </div>
                     </div>
                 </div>

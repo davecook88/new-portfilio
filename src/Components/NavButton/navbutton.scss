@@ -80,4 +80,23 @@
   transform: rotate(45deg);
 }
 
-//rgb(26,35,126)
+@media only screen and (max-width:600px) {
+  .menu-bar > ul{
+    background: transparent;
+    margin-left: 4em;
+    margin-top: -0.25em;
+    display: block;
+  }
+  .navbutton{
+    height:4em;
+    width:4em;
+    padding:0.75em 0.5em;    
+    z-index: 9999;
+    
+  }
+  .nav-line-holder{
+    height:2em;
+    width:2em;
+  }
+  
+}

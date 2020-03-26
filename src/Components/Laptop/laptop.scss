@@ -5,6 +5,10 @@
   -o-transition: #{$str};
   transition: #{$str};      
 }
+
+.no-padding{
+  padding: 0;
+}
 .screen-center {
   top:15%;  
   left:25%;
@@ -13,9 +17,7 @@
   opacity:1;
 }
 .laptop-drawing{
-    @include transition('height 1s ease-in');
     @include transition('all 1s ease-in');
-    // @include transition('left 0.5s ease-in');
     
     display:block;
     z-index:999;
@@ -289,6 +291,86 @@
     z-index:2;
     animation: progress-bar 2s linear;
   }
+
   @keyframes progress-bar {
     from { width: 0; }
+  }
+
+  @media only screen and (max-width: 800px) {
+    .fixed {
+      position:relative;
+    }
+    .laptop-drawing{
+      z-index: unset;
+    }
+    .laptop-keyboard {
+      padding: 0.5%;
+      position: relative;
+      z-index: -1;
+      width: 118%;
+      margin-left: -9%;
+      margin-top: -4%;
+      margin-bottom: -1%;
+      background-color: #717171;
+      transform: perspective(118px) rotateX(45deg);
+      height: 31%;
+    }
+    .code-title {
+      font-size:12px;
+    }
+    .skill {
+      font-size: 0.9em;
+    }
+    .face-pic {
+      font-size: 0.15em;
+    }
+    .main-screen > p {
+      margin:0;
+    }
+    .tall-80 {
+      height: 8em;
+    }
+    .no-padding-on-mobile{
+      padding: 0;
+    }
+    .skill-name{
+      width:11em;
+    }
+    .laptop-screen-inner{
+      padding: 0;
+    }
+    .laptop-keys-row {
+      height: 0.9em;
+      width: 100%;
+    }
+    .laptop-trackpad {
+        width: 20%;
+        height: 20%;
+        background-color: #333;
+        margin: auto;
+        margin-top: 1.2%;
+        border: 1px inset darkgray;
+    }
+      .laptop-keys-box {
+        width: 95%;
+        height: 90%;
+        z-index: -1;
+        background-color: #333;
+        margin: auto;
+        border: 1px inset darkgray;
+        position: relative;
+    }
+    .laptop-key{
+      // height:1em;
+    }
+  }
+  @media only screen and (max-width: 400px) {
+    .hide-on-tiny-screens{
+      display: none;
+    }
+    .code-title{
+      font-size: 14px;
+      text-align:justify;
+      padding:1em;
+    }
   }

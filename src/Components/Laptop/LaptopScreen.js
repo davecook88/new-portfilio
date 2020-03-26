@@ -3,7 +3,8 @@ import { face } from '../../static/facepic.js';
 import { Row, Col } from 'react-materialize';
 import DiceRollerApp from '../Projects/Dice/DiceRollerApp';
 import TestThree from '../Projects/ThreeJS/test'
-import '../../static/lakarencita.PNG';
+import lakarencita from '../../static/lakarencita.PNG';
+import snakegame from '../../static/snakegif.gif';
 
 class OpeningScreen extends Component{
     constructor(props){
@@ -104,7 +105,7 @@ class OpeningScreen extends Component{
         return (
             <div className="code-text full-height" >
                 <Row className="tall-80">
-                    <Col s={3} >
+                    <Col s={4} m={3} >
                         <div className="face-pic">
                             <span>{this.props.progress}</span>
                                 <span id="typing">
@@ -113,10 +114,10 @@ class OpeningScreen extends Component{
                             <span className="blink_me" id="cursor"></span>
                         </div>
                     </Col>
-                    <Col s={9}>
+                    <Col s={8} m={9}>
                     <div className="main-screen">
                         <span className="code-title">web design - scripting - automation</span>
-                        <p>Four years' experience creating beautiful, responsive websites and providing automation solutions for
+                        <p className="hide-on-tiny-screens">Four years' experience creating beautiful, responsive websites and providing automation solutions for
                             businesses.
                         </p>
                     </div>
@@ -125,7 +126,7 @@ class OpeningScreen extends Component{
                     
                 </Row>
                 <Row>
-                    <Col s={12} className="text-center">
+                    <Col s={12} className="text-center no-padding-on-mobile">
                         {this.createSkillSections()}
                     </Col>                   
                 </Row>
@@ -134,24 +135,39 @@ class OpeningScreen extends Component{
     }
 
 }
+const ImageDiv = (props) => {
+    return (
+        <img className="lakarencita" 
+                        src={props.source} alt="la karencita" 
+                        style={{
+                            height:`${props.screenHeight + 5}px`,
+                            width:`${props.screenWidth + 5}px`,
+                            // marginTop: -5 + "px",
+                            // marginLeft: -5 + "px"
 
-const LaKarencita = () => {
-    return(
-        <div><img src="../../static/lakarencita.PNG" alt="la karencita"></img></div>
+                        }}></img>
     )
 }
 
 export default class LaptopScreen extends Component {
+    
+    
     showScreen = () => {
         switch(this.props.position) {
             case 0:
                 return <OpeningScreen />
-            case 1 || 2:
+            case 1:
+                return <TestThree />;
+            case 2:
                 return <TestThree />;
             case 3:
                 return <DiceRollerApp />;
             case 4:
-                return <LaKarencita />;
+                return <ImageDiv source={lakarencita} screenHeight={this.props.screenHeight} width={this.props.screenWidth} />;
+            case 5:
+                return <ImageDiv source={snakegame} screenHeight={this.props.screenHeight} width={this.props.screenWidth} />;
+            case 6:
+                return <ImageDiv source={snakegame} screenHeight={this.props.screenHeight} width={this.props.screenWidth} />;
             default:
                 return <div></div>;
         }
@@ -159,10 +175,12 @@ export default class LaptopScreen extends Component {
     render() {
         return (
             <div 
+                
                 className={`relative 
-                    ${this.props.position > 1 ? 'white' :''}`
+                    ${this.props.position > 3 ? 'white' :''}`
                     }>
                 {this.showScreen(this.props.position)}
+
             </div>
         )
     }

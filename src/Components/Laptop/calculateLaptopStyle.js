@@ -4,27 +4,15 @@ export default function calculateInlineStyle({
     leftModifier = 0.1,
     topModifier = 0.1
     } = {}) {
-    const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
-
+    const windowWidth = window.screen.width;
+    const windowHeight = window.screen.height;
     //If mobile
-    if (windowWidth < 600){
-        const style = {
-            height: windowHeight / 2,
-            width: windowWidth * 0.9,
-            left: 0,
-            top: 0,
-        };
-        return style;
-    }
-
-    if (windowWidth > 600){
-        const style = {
-            height: windowHeight * heightModifier,
-            width: windowWidth * widthModifier,
-            left: windowWidth * leftModifier,
-            top: windowHeight * topModifier,
-        };
-        return style;
-    }
+    const widthToHeightRatio = windowWidth > 400 ? 2 : 2.2;
+    const style = {
+        height: windowWidth * widthModifier / widthToHeightRatio,
+        width: windowWidth * widthModifier,
+        left: windowWidth * leftModifier,
+        top: windowHeight * topModifier,
+    };
+    return style;
 }

@@ -18,14 +18,14 @@ export default class NameLogo extends Component {
             <span className="logo-letter" id="C">COOK</span>
           </div>
         </Row>
-    
+{/*     
         <Row>
           <div className="logo subtitle full-row">
             <span className='intro-text'>
                   <p>Don't waste any more time on repetitive tasks.</p>
             </span>
           </div>
-        </Row>
+        </Row> */}
       </div>
     )
   }

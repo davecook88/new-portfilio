@@ -19,16 +19,15 @@ export default class NavButton extends Component {
       <div className="navbutton">
         <div className={`menu-bar ${this.props.open ? '' : 'closed'}`}>
           <ul>
-            {this.props.position !== 0 ? <li>home</li> : ''}
-            <li>web design</li>
-            <li>automation</li>
-            <li>about</li>
-            <li>contact</li>
+            {this.props.position !== 0 ? <li><a className="black-text" href="#first">home</a></li> : ''}
+            <li><a className="black-text" href="#second">web design</a></li>
+            <li><a className="black-text" href="#fourth">automation</a></li>
+            <li><a className="black-text" href="#sixth">contact</a></li>
           </ul>
         </div>
-        <div className={`nav-line-holder ${this.props.open ? '' : 'closed'}`} onClick={this.clickHandler}>
-          <div className={`white nav-line one ${this.props.open ? 'open-arrow':'closed-cross'}`}></div>
-          <div className={`white nav-line two ${this.props.open ? 'open-arrow':'closed-cross'}`}></div>
+        <div className={`nav-line-holder ${this.props.open ? 'closed':''}`} onClick={this.clickHandler}>
+          <div className={`white nav-line one ${this.props.open ? 'closed-cross':'open-arrow'}`}></div>
+          <div className={`white nav-line two ${this.props.open ? 'closed-cross':'open-arrow'}`}></div>
         </div>
       </div>
     )

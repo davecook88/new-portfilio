@@ -15,7 +15,8 @@ export default class DiceRollerApp extends react.Component {
       topRow:[],
       stillSpinning: true,
       modifier: 0,
-      showResults: false
+      showResults: false,
+      isMobile:window.screen.width < 600,
     };
   }
   componentDidMount() {
@@ -146,8 +147,9 @@ export default class DiceRollerApp extends react.Component {
   }
   populateTopRowOfDisplayDice() {
     const diceNumbers = [6, 8, 10, 12, 20];
+    const rendererSizeModifier = this.state.isMobile ? 0.7 : 1;
     let scenesArray = diceNumbers.map(d => {
-      const dice = new Dice(d, {size:200})
+      const dice = new Dice(d, {size:200 * rendererSizeModifier})
       return (
         <DiceScene
           key={`display-d${d}`}
@@ -155,7 +157,7 @@ export default class DiceRollerApp extends react.Component {
           // context={this}
           diceType={dice.type}
           // size={150}
-          rendererSize={d === 100 ? 25 : 50}
+          rendererSize={d === 100 ? 25 * rendererSizeModifier : 50 * rendererSizeModifier}
           clickHandler={this.handleClickDisplayDice}
         />
       );
@@ -164,7 +166,8 @@ export default class DiceRollerApp extends react.Component {
   }
   handleClickDisplayDice = d => {
     let state = this.state;
-    const rendererSize = d === 100 ? 30 : 60;
+    const rendererSizeModifier = this.state.isMobile ? 0.5 : 1;
+    const rendererSize = d === 100 ? 30 * rendererSizeModifier: 60 * rendererSizeModifier;
     const dice = new Dice(d,{size:250})
     const newDiceScene = (
       <DiceScene

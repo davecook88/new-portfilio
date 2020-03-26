@@ -42,3 +42,8 @@
   margin: 0.5em;
   flex:auto;
 }
+@media only screen and (max-width: 600px) {
+  .social-media-bar{
+    justify-content: space-between;
+  }
+}
