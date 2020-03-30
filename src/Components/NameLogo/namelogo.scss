@@ -75,6 +75,21 @@ $logoSubtitleFont: 'Fira Code', monospace;
 background: linear-gradient(90deg, rgba(2,0,36,0) 0%, rgba(7,191,168,0.804359243697479) 45%, rgba(9,9,121,1) 100%);
 }
 @media only screen and (max-width:800px) {
+  .logo.holder{
+    width:unset;
+    right:0;
+    width:100vw;
+    height:15vh;
+    background-color: #fff;
+    background: linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6615021008403361) 27%, rgba(255,255,255,1) 70%);
+  }
+  .logo.box {
+    position: relative;
+    width: 60vw;
+    float: right;
+  }
+}
+@media only screen and (max-width:600px) {
   .logo {
     font-size: 4vh;
     line-height: 2vh;
@@ -93,7 +108,7 @@ background: linear-gradient(90deg, rgba(2,0,36,0) 0%, rgba(7,191,168,0.804359243
     position: relative;
     width: 40vw;
     float: right;
-}
+  }
   
   .first-name > span{
     margin-right:1em;

@@ -118,12 +118,13 @@
   }
   
   .laptop-keyboard-base {
-    width: 146%;
+    width: 143.5%;
     height: 7%;
-    margin-left: -23%;
+    margin-left: -22%;
+    margin-top: -0.5%;
     border: 1px solid grey;
     background-color: #bbb;
-    background: linear-gradient(180deg, rgba(186,186,189,1) 0%, rgba(116,116,116,1) 30%, rgba(66,66,66,1) 100%);
+    background: linear-gradient(180deg, #bababd 0%, #747474 30%, #424242 100%);
     border-radius: 10% 10% 50% 50%;
   }
   
@@ -148,7 +149,7 @@
     z-index: -1;
     width: 118%;
     margin-left: -9%;
-    margin-top: -1.8%;
+    margin-top: -2.3%;
     margin-bottom: 0%;
     background-color: #717171;
     transform: perspective(118px) rotateX(31deg);
@@ -163,6 +164,7 @@
     margin:auto;
     border:1px inset darkgray;
     position: relative;
+
   }
   .laptop-key {
     position: relative;
@@ -187,6 +189,9 @@
   .laptop-keys-row{
     height:1.2em;
     width:100%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
   }
   .laptop-keys-space.numbers{
     width:23%;
@@ -296,7 +301,7 @@
     from { width: 0; }
   }
 
-  @media only screen and (max-width: 800px) {
+  @media only screen and (max-width: 600px) {
     .fixed {
       position:relative;
     }
@@ -360,6 +365,7 @@
         border: 1px inset darkgray;
         position: relative;
     }
+    
     .laptop-key{
       // height:1em;
     }

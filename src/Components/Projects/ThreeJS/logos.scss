@@ -20,9 +20,17 @@
   @include transition('all 1s ease-in-out');
   text-align: center;   
 }
+@media only screen and (max-width: 800px) {
+  .small-text{
+    font-size: 14px;
+  }
+}
 
 @media only screen and (max-width: 600px) {
   .logo-holder {
     font-size: 16px;
+  }
+  .container.logos{
+    padding: 0.5em 1em;
   }
 }

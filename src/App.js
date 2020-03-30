@@ -42,8 +42,14 @@ class App extends React.Component {
       leftModifier: 0,
       topModifier: 0.15,
     };
+    let ipadModifiers = {
+      heightModifier: 0.30,
+      widthModifier: 0.8,
+      leftModifier: 0.1,
+      topModifier: 0.15,
+    };
     const browserWidth = window.screen.width;  
-    const modifiers = browserWidth < 600 ? smallScreenModifiers : bigScreenModifiers;
+    const modifiers = browserWidth < 600 ? smallScreenModifiers : browserWidth < 800 ? ipadModifiers : bigScreenModifiers;
     let style;
     if (browserWidth < 600) { //is mobile
         if(this.state.position === 0) {
@@ -56,8 +62,14 @@ class App extends React.Component {
             style = calculateInlineStyle(modifiers);
         }
     } else { //not mobile
-        style = calculateInlineStyle(modifiers);
+        if (this.state.position < 7) {
+          style = calculateInlineStyle(modifiers);
+        } else {
+          modifiers.topModifier = -2; // fly up when at the bottom
+          style = calculateInlineStyle(modifiers);
+        }
     }
+    console.log(this.state.position);
     console.log(style);
     return style;
   }
@@ -95,39 +107,41 @@ class App extends React.Component {
         <section id="first">              
           {this.state.position < 1 ? <ReviewCarousel /> : ''}
         </section>
-        <Waypoint scrollableAncestor="window" onEnter={() => {this.setPosition(0)}}/>
+        <Waypoint scrollableAncestor="window" onEnter={() => {this.setPosition(1)}}>
+          
+          <section id="second" className="full-screen">
+            {this.state.position < 3 ? <ContentCard type={'jsSkills'} position={this.state.position} slide={false}/> : ''}
+          </section>
+        </Waypoint>
+        <Waypoint scrollableAncestor="window" onEnter={() => {this.setPosition(2, {force: true})}}/>
+        <Waypoint scrollableAncestor="window" onEnter={() => {this.setPosition(3, {force: true})}}>
+          <section id="third" className="full-screen">
+            <ContentCard type={'diceApp'} position={this.state.position} slide={false} />
+          </section>
+        </Waypoint>
+        <Waypoint scrollableAncestor="window" onEnter={() => {this.setPosition(4, {force: true})}}>
+          <section id="fourth" className="full-screen">
+          <ContentCard type={'lakarencita'} position={this.state.position} slide={false}/>
+            {/* {this.state.position > 3  ? 
+                :
+                ''} */}
+          </section>
+        </Waypoint>
+        <Waypoint scrollableAncestor="window" onEnter={() => {this.setPosition(4)}}>
+          <section id="fourth" className="full-screen">
+            <ContentCard type={'snakegame'} position={this.state.position} slide={false}/>
+          </section>
+        </Waypoint>
+        <Waypoint scrollableAncestor="window" onEnter={() => {this.setPosition(5)}}/>
         
-        <section id="second" className="full-screen">
-          {this.state.position < 3 ? <ContentCard type={'jsSkills'} position={this.state.position} slide={true}/> : ''}
-        </section>
-        <Waypoint scrollableAncestor="window" onEnter={() => {this.setPosition(1)}}/>
-        <Waypoint scrollableAncestor="window" onEnter={() => {this.setPosition(2)}}/>
-        <section id="third" className="full-screen">
-          <ContentCard type={'diceApp'} position={this.state.position} slide={false} hide={this.state.position === 2}/>
-        </section>
-        <Waypoint scrollableAncestor="window" onEnter={() => {this.setPosition(3)}}/>
-        <section id="fourth" className="full-screen">
-        <ContentCard type={'lakarencita'} position={this.state.position} slide={false}/>
-          {/* {this.state.position > 3  ? 
-               :
-              ''} */}
-        </section>
-        <Waypoint scrollableAncestor="window" onEnter={() => {this.setPosition(4)}}/>
-        <section id="fourth" className="full-screen">
-          <ContentCard type={'snakegame'} position={this.state.position} slide={false}/>
-              {/* {this.state.position > 4  ? 
-                  <ContentCard type={'snakegame'} position={this.state.position} slide={false}/> :
-                  ''} */}
-        </section>
-        <Waypoint scrollableAncestor="window" onEnter={() => {this.setPosition(5 , {force: true})}}/>
-        <Waypoint scrollableAncestor="window" onEnter={() => {this.setPosition(6 , {force: true})}}/>
 
         <section id="fifth" className="full-screen half-height">
           <Row>
+          
             <Col xs={12} m={12}>
               <h4 className="light-blue-text text-center">Additional projects completed</h4>
             </Col>
-            <Col s={12} m={3}>
+            <Col s={12} m={4}>
               <div className="card white-text blue padded text-center">
                 <h4>Shopify inventory management</h4>
                 <p>Let me help you automate listing and shop management by integrating your Shopify API with
@@ -135,7 +149,7 @@ class App extends React.Component {
                 </p>
               </div>
             </Col>
-            <Col s={12} m={3}>
+            <Col s={12} m={4}>
               <div className="card white-text blue padded text-center">
                 <h4>Full-stack vocabulary study web app</h4>
                 <p>Made with Python, Flask. Web app integrated with the Oxford English Dictionary to 
@@ -143,7 +157,7 @@ class App extends React.Component {
                 </p>
               </div>
             </Col>
-            <Col s={12} m={3}>
+            <Col s={12} m={4}>
               <div className="card white-text blue padded text-center">
                 <h4>Scheduling system for cover teachers</h4>
                 <p>Algorithm written in Google Sheets which compares levels taught and availability for all teachers in a school
@@ -151,8 +165,10 @@ class App extends React.Component {
                 </p>
               </div>
             </Col>
+            <Waypoint scrollableAncestor="window" onEnter={() => {this.setPosition(7)}}/>
           </Row>
         </section>
+        
         <Row>
                 
         <Col xs={12} m={1}></Col>
@@ -162,14 +178,14 @@ class App extends React.Component {
           </Col>
           <Col xs={12} m={5}></Col>
         </Row>
-        <Waypoint scrollableAncestor="window" onEnter={() => {this.setPosition(6, {force: true})} }/>
+        <Waypoint scrollableAncestor="window" onEnter={() => {this.setPosition(7, {force: true})} }/>
         
         
         <section id="sixth" className="half-screen half-height teal">
           <Container className="icons-container">
             <Row className="icons-row">
-              <Col s={12} m={3}/>  
-              <Col s={12} m={3} >                
+              {/* <Col s={12} m={12}/>   */}
+              <Col s={12} m={4} >                
                 <div className='icon-holder'>
                   <AiFillFileExcel />
                   <div className='small-text'>
@@ -178,7 +194,7 @@ class App extends React.Component {
                   </div>
                 </div>
               </Col>  
-              <Col s={12} m={3} > 
+              <Col s={12} m={4} > 
                 <div className='icon-holder'>
                   <FaGoogle />
                   <div className='small-text'>
@@ -187,7 +203,7 @@ class App extends React.Component {
                   </div>
                 </div>
               </Col>  
-              <Col s={12} m={3} > 
+              <Col s={12} m={4} > 
                 <div className='icon-holder'>
                   <FaLaptopCode />
                   <div className='small-text'>
