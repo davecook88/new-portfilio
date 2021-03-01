@@ -17,7 +17,7 @@
     "react-scripts": "3.4.0",
     "react-waypoint": "^9.0.2",
     "sass": "^1.26.2",
-    "three": "^0.114.0"
+    "three": "^0.125.0"
   },
   "scripts": {
     "start": "react-scripts start",
